@@ -402,6 +402,8 @@
 
   .icon { font-size: 1rem; }
 
+  .tab-panel { display: block; }
+
   .action-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -466,13 +468,16 @@
 
 <!-- TABS -->
 <div class="tabs">
-  <div class="tab active">Weekly Summary</div>
-  <div class="tab">Delay Detail</div>
-  <div class="tab">Action Items</div>
-  <div class="tab">Trend View</div>
+  <div class="tab active" onclick="switchTab('summary', this)">Weekly Summary</div>
+  <div class="tab" onclick="switchTab('detail', this)">Delay Detail</div>
+  <div class="tab" onclick="switchTab('actions', this)">Action Items</div>
+  <div class="tab" onclick="switchTab('trend', this)">Trend View</div>
 </div>
 
 <div class="main">
+
+  <!-- TAB: WEEKLY SUMMARY -->
+  <div id="tab-summary" class="tab-panel">
 
   <!-- ICEBREAKER -->
   <div class="section-label">🧊 Icebreaker — Let's Kick Things Off</div>
@@ -492,37 +497,6 @@
             <em>"Out of Control — school drop-off traffic."</em><br>
             <em>"PostProd ETA Miss — hit every red light."</em>
           </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STAFFING -->
-  <div class="section-label">👥 Staffing — Open Floor</div>
-  <div class="chart-card" style="border-left: 4px solid var(--blue);">
-    <div style="display:flex; align-items:flex-start; gap:20px;">
-      <div style="font-size:2rem; flex-shrink:0; margin-top:2px;">💬</div>
-      <div style="flex:1">
-        <div class="chart-title" style="margin-bottom:6px;">Team & Staffing Discussion</div>
-        <div style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">
-          Open the floor for any staffing updates, capacity concerns, or team structure conversations across Market Ops and Logistics.
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div style="background:#F5F8FC; border:1px solid var(--border); border-radius:6px; padding:12px 14px;">
-            <div style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:6px;">Discussion Prompts</div>
-            <div style="font-size:0.77rem; color:var(--text); line-height:1.7;">
-              • Any open roles or recent hires to flag?<br>
-              • Coverage gaps during peak periods?<br>
-              • Cross-team bandwidth concerns?<br>
-              • Shoutouts or recognition for the team?
-            </div>
-          </div>
-          <div style="background:#F5F8FC; border:1px solid var(--border); border-radius:6px; padding:12px 14px;">
-            <div style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:6px;">Notes</div>
-            <div style="font-size:0.77rem; color:var(--muted); font-style:italic; line-height:1.7;">
-              Use this space to capture any action items or follow-ups from the staffing discussion.
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1073,6 +1047,89 @@
     <div class="callout-body">The AMG E-Class (6-leg transit, windshield + fuel leak), F-150 sliding off hauler (22-day sit + brake glaze), Versa (radar bracket impact), and Explorer (hood latch failure) all show transit-related damage. <strong>The 2023 F-150 sat on a hauler for 22 days</strong> before delivery — e-brake glazing and air in brake lines are predictable outcomes. Logistics should review extended-dwell haul policies.</div>
   </div>
 
+  </div><!-- end tab-summary -->
+
+  <!-- TAB: DELAY DETAIL -->
+  <div id="tab-detail" class="tab-panel" style="display:none">
+    <div class="section-label">Delay Detail — All 19 Vehicles · Week of May 11</div>
+    <div style="margin-bottom:14px; font-size:0.8rem; color:var(--muted);">Full vehicle-by-vehicle breakdown with stock number, description, identified issue, bucket, and AI summary note.</div>
+
+    <!-- OOC TABLE -->
+    <div class="bucket-card" style="margin-bottom:20px;">
+      <div class="bucket-header" style="background:#F5F9FF;">
+        <div class="bucket-name"><div class="bucket-dot" style="background:#2D7DD2"></div>Out of Control — 14 Vehicles</div>
+        <div class="bucket-count" style="color:#2D7DD2">14</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+        <thead><tr style="background:#F8FAFD;border-bottom:2px solid var(--border);">
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;">Stock #</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Vehicle</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">OOC Reason</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Delay Note</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004693024</td><td style="padding:9px 14px;font-weight:600;">2021 MB AMG E-Class</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E3EEF8;color:#1B5FA8">Transit damage</span></td><td style="padding:9px 14px;color:var(--muted);">Cracked windshield + fuel leak at BLHHB hub after 6-leg transit; sent to dealer.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004562236</td><td style="padding:9px 14px;font-weight:600;">2023 Ford F-150</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E3EEF8;color:#1B5FA8">Transit damage</span></td><td style="padding:9px 14px;color:var(--muted);">Glazed rotors + air in brake lines after sliding off hauler during 22-day sit.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004680660</td><td style="padding:9px 14px;font-weight:600;">2021 Nissan Versa</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E3EEF8;color:#1B5FA8">Transit damage</span></td><td style="padding:9px 14px;color:var(--muted);">Front radar bracket damaged; collision warning lit at delivery hub post-transit.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004617327</td><td style="padding:9px 14px;font-weight:600;">2017 Ford Explorer</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E3EEF8;color:#1B5FA8">Transit damage</span></td><td style="padding:9px 14px;color:var(--muted);">Hood latch failed; hood flying open post PHX→LA transit.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004550161</td><td style="padding:9px 14px;font-weight:600;">2017 Dodge Grand Caravan</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FFF3E0;color:#E87B2E">Function drift</span></td><td style="padding:9px 14px;color:var(--muted);">Window off track at TCA hub after multi-leg transit; passed 2 PHX lot sweeps prior.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004734277</td><td style="padding:9px 14px;font-weight:600;">2019 MB AMG C-Class</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FFF3E0;color:#E87B2E">Function drift</span></td><td style="padding:9px 14px;color:var(--muted);">Cooling/water pump code at LV hub; passed Tolleson Recon + Lot Sweep.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004816682</td><td style="padding:9px 14px;font-weight:600;">2019 Chevy Malibu</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FFF3E0;color:#E87B2E">Pre-diagnosis</span></td><td style="padding:9px 14px;color:var(--muted);">CEL active in 2-day window post lot sweep; root cause pending diagnosis.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004530184</td><td style="padding:9px 14px;font-weight:600;">2022 Ford F-150</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FFE8E8;color:#C0392B">Ext. error</span></td><td style="padding:9px 14px;color:var(--muted);">Vehicle involved in accident while 3rd-party smog vendor was transporting it.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004647166</td><td style="padding:9px 14px;font-weight:600;">2018 Jaguar F-TYPE</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E3EEF8;color:#1B5FA8">Lot/Transit</span></td><td style="padding:9px 14px;color:var(--muted);">Nail in rear tire post 3-leg transit; undetectable via visual PP checks.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004203663</td><td style="padding:9px 14px;font-weight:600;">2020 Nissan Pathfinder</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E8F5F0;color:#1A8C5B">CA Smog</span></td><td style="padding:9px 14px;color:var(--muted);">CA-bound: O2 monitors incomplete + O2 sensor bung damaged from prior service.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004839715</td><td style="padding:9px 14px;font-weight:600;">2024 Jeep Wrangler 4xe</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E8F5F0;color:#1A8C5B">CA Smog</span></td><td style="padding:9px 14px;color:var(--muted);">Permanent powertrain codes need drive cycle for CA emissions at SD hub.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004793678</td><td style="padding:9px 14px;font-weight:600;">2015 BMW M3</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#E8F5F0;color:#1A8C5B">CA Smog</span></td><td style="padding:9px 14px;color:var(--muted);">Aftermarket tune/downpipe; needs reflash + OEM cats to pass CA emissions.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2003675089</td><td style="padding:9px 14px;font-weight:600;">2018 Chevy Equinox</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#F0EBF8;color:#7B5EA7">Continuation</span></td><td style="padding:9px 14px;color:var(--muted);">Transmission continuation — pushed before prior ETA of 5/14 18:30 UTC.</td></tr>
+          <tr><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004620370</td><td style="padding:9px 14px;font-weight:600;">2019 Nissan Sentra</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#F0EBF8;color:#7B5EA7">Continuation</span></td><td style="padding:9px 14px;color:var(--muted);">O2 sensor permanent code continuation; pushed inside prior ETA window.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- POSTPROD TABLE -->
+    <div class="bucket-card" style="margin-bottom:20px;">
+      <div class="bucket-header" style="background:#FFF8F3;">
+        <div class="bucket-name"><div class="bucket-dot" style="background:#E87B2E"></div>PostProd — 4 Vehicles</div>
+        <div class="bucket-count" style="color:#E87B2E">4</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+        <thead><tr style="background:#FFF8F3;border-bottom:2px solid var(--border);">
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;">Stock #</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Vehicle</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Process Gap</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Delay Note</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004744884</td><td style="padding:9px 14px;font-weight:600;">2018 FIAT 500</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FEF0E5;color:#E87B2E">Repair quality</span></td><td style="padding:9px 14px;color:var(--muted);">Window motor failed again — PP regulator repair missed broken actuator parts.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004743198</td><td style="padding:9px 14px;font-weight:600;">2016 Dodge Challenger</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FEF0E5;color:#E87B2E">ETA miss</span></td><td style="padding:9px 14px;color:var(--muted);">2nd push on e-brake repair — dealer ran past committed ETA window.</td></tr>
+          <tr style="border-bottom:1px solid #F0F2F6;"><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004378000</td><td style="padding:9px 14px;font-weight:600;">2018 Ford Escape</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FEF0E5;color:#E87B2E">ETA miss</span></td><td style="padding:9px 14px;color:var(--muted);">Missing caliper spring causing warped rotor; committed ETA missed.</td></tr>
+          <tr><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004511229</td><td style="padding:9px 14px;font-weight:600;">2024 Ford F-250</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#FEF0E5;color:#E87B2E">ETA miss</span></td><td style="padding:9px 14px;color:var(--muted);">Oil leak caught at Return QC 5/1; repair didn't complete before sale date.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- RECON TABLE -->
+    <div class="bucket-card">
+      <div class="bucket-header" style="background:#FAF6FF;">
+        <div class="bucket-name"><div class="bucket-dot" style="background:#7B5EA7"></div>Recon — 1 Vehicle</div>
+        <div class="bucket-count" style="color:#7B5EA7">1</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.76rem;">
+        <thead><tr style="background:#FAF6FF;border-bottom:2px solid var(--border);">
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;">Stock #</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Vehicle</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Subreason</th>
+          <th style="padding:9px 14px;text-align:left;font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;">Delay Note</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:9px 14px;font-family:'DM Mono',monospace;color:var(--muted);white-space:nowrap;">2004771629</td><td style="padding:9px 14px;font-weight:600;">2019 Jeep Cherokee</td><td style="padding:9px 14px;"><span class="v-tag" style="background:#F0EBF8;color:#7B5EA7">Cosmetics</span></td><td style="padding:9px 14px;color:var(--muted);">Excessive ant infestation requiring bug bomb; only Recon QC at Tolleson on file.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- end tab-detail -->
+
+  <!-- TAB: ACTION ITEMS -->
+  <div id="tab-actions" class="tab-panel" style="display:none">
   <!-- ACTION ITEMS -->
   <div class="section-label">Recommended Action Items</div>
   <div class="action-grid">
@@ -1116,6 +1173,37 @@
       <div class="action-content">
         <div class="action-title">Watch: VQ Rate Trending Back Up <span class="owner-badge">BOTH TEAMS</span></div>
         <div class="action-body">The overall VQ delay rate dropped to 2.96% (May 4) but has risen to 3.80% by May 18. With 19 delays in the week of May 11, this week's data will likely push the rate higher. Monitor closely and set a shared goal to get back below 3.0% by end of May.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAFFING -->
+  <div class="section-label">👥 Staffing — Open Floor</div>
+  <div class="chart-card" style="border-left: 4px solid var(--blue);">
+    <div style="display:flex; align-items:flex-start; gap:20px;">
+      <div style="font-size:2rem; flex-shrink:0; margin-top:2px;">💬</div>
+      <div style="flex:1">
+        <div class="chart-title" style="margin-bottom:6px;">Team & Staffing Discussion</div>
+        <div style="font-size:0.82rem; color:var(--muted); line-height:1.65; margin-bottom:16px;">
+          Open the floor for any staffing updates, capacity concerns, or team structure conversations across Market Ops and Logistics.
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="background:#F5F8FC; border:1px solid var(--border); border-radius:6px; padding:12px 14px;">
+            <div style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:6px;">Discussion Prompts</div>
+            <div style="font-size:0.77rem; color:var(--text); line-height:1.7;">
+              • Any open roles or recent hires to flag?<br>
+              • Coverage gaps during peak periods?<br>
+              • Cross-team bandwidth concerns?<br>
+              • Shoutouts or recognition for the team?
+            </div>
+          </div>
+          <div style="background:#F5F8FC; border:1px solid var(--border); border-radius:6px; padding:12px 14px;">
+            <div style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:6px;">Notes</div>
+            <div style="font-size:0.77rem; color:var(--muted); font-style:italic; line-height:1.7;">
+              Use this space to capture any action items or follow-ups from the staffing discussion.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1230,7 +1318,111 @@
     }
   </script>
 
+  </div><!-- end tab-actions -->
+
+  <!-- TAB: TREND VIEW -->
+  <div id="tab-trend" class="tab-panel" style="display:none">
+    <div class="section-label">VQ Delay Rate — Rolling Trend</div>
+    <div class="chart-card">
+      <div class="chart-title">'Vehicle Quality' Delay Rate — PHX-IC Attribution</div>
+      <div class="chart-sub">Apr 25 – May 18, 2026 · Rate bottomed at 2.96% on May 4, now trending back up to 3.80%</div>
+      <svg viewBox="0 0 900 280" width="100%" style="overflow:visible;margin-top:8px;">
+        <line x1="60" y1="30" x2="860" y2="30" stroke="#E8ECF3" stroke-width="1"/>
+        <line x1="60" y1="80" x2="860" y2="80" stroke="#E8ECF3" stroke-width="1"/>
+        <line x1="60" y1="130" x2="860" y2="130" stroke="#E8ECF3" stroke-width="1"/>
+        <line x1="60" y1="180" x2="860" y2="180" stroke="#E8ECF3" stroke-width="1"/>
+        <line x1="60" y1="230" x2="860" y2="230" stroke="#E8ECF3" stroke-width="1"/>
+        <text x="50" y="34" text-anchor="end" font-size="10" fill="#9BAAB8">4.5%</text>
+        <text x="50" y="84" text-anchor="end" font-size="10" fill="#9BAAB8">4.0%</text>
+        <text x="50" y="134" text-anchor="end" font-size="10" fill="#9BAAB8">3.5%</text>
+        <text x="50" y="184" text-anchor="end" font-size="10" fill="#9BAAB8">3.0%</text>
+        <text x="50" y="234" text-anchor="end" font-size="10" fill="#9BAAB8">2.5%</text>
+        <line x1="60" y1="180" x2="860" y2="180" stroke="#1A8C5B" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <text x="865" y="184" font-size="9" fill="#1A8C5B" font-weight="600">Goal 3%</text>
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2D7DD2" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#2D7DD2" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <polygon points="150,67 380,184 600,128 780,100 780,230 150,230" fill="url(#lineGrad)"/>
+        <polyline points="150,67 380,184 600,128 780,100" fill="none" stroke="#2D7DD2" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="150" cy="67" r="5" fill="#2D7DD2" stroke="white" stroke-width="2"/>
+        <circle cx="380" cy="184" r="5" fill="#1A8C5B" stroke="white" stroke-width="2"/>
+        <circle cx="600" cy="128" r="5" fill="#2D7DD2" stroke="white" stroke-width="2"/>
+        <circle cx="780" cy="100" r="6" fill="#C0392B" stroke="white" stroke-width="2"/>
+        <text x="150" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#1C2B3A">4.13%</text>
+        <text x="150" y="255" text-anchor="middle" font-size="10" fill="#9BAAB8">Apr 27</text>
+        <text x="380" y="200" text-anchor="middle" font-size="11" font-weight="700" fill="#1A8C5B">2.96%</text>
+        <text x="380" y="255" text-anchor="middle" font-size="10" fill="#9BAAB8">May 4</text>
+        <text x="600" y="116" text-anchor="middle" font-size="11" font-weight="700" fill="#1C2B3A">3.52%</text>
+        <text x="600" y="255" text-anchor="middle" font-size="10" fill="#9BAAB8">May 11</text>
+        <text x="780" y="88" text-anchor="middle" font-size="11" font-weight="700" fill="#C0392B">3.80%</text>
+        <text x="780" y="255" text-anchor="middle" font-size="10" fill="#E87B2E" font-weight="600">May 18 ▲</text>
+      </svg>
+    </div>
+
+    <div class="section-label">Weekly Volume — By Bucket</div>
+    <div class="week-compare">
+      <div class="wk-col">
+        <div class="wk-label">Wk May 3</div>
+        <div class="wk-total">6</div>
+        <div class="wk-stacks">
+          <div class="wk-seg" style="width:33%;background:#2D7DD2"></div>
+          <div class="wk-seg" style="width:33%;background:#E87B2E"></div>
+          <div class="wk-seg" style="width:33%;background:#7B5EA7"></div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">OOC: 2 · PP: 2 · Rec: 2</div>
+      </div>
+      <div class="wk-col">
+        <div class="wk-label">Wk May 4</div>
+        <div class="wk-total">12</div>
+        <div class="wk-stacks">
+          <div class="wk-seg" style="width:58%;background:#2D7DD2"></div>
+          <div class="wk-seg" style="width:25%;background:#E87B2E"></div>
+          <div class="wk-seg" style="width:17%;background:#7B5EA7"></div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">OOC: 7 · PP: 3 · Rec: 2</div>
+      </div>
+      <div class="wk-col">
+        <div class="wk-label">Wk May 6–7</div>
+        <div class="wk-total">6</div>
+        <div class="wk-stacks">
+          <div class="wk-seg" style="width:67%;background:#2D7DD2"></div>
+          <div class="wk-seg" style="width:33%;background:#7B5EA7"></div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">OOC: 4 · Rec: 2</div>
+      </div>
+      <div class="wk-col current">
+        <div class="wk-label" style="color:var(--amber);font-weight:600">Wk May 11 ▲ Current</div>
+        <div class="wk-total" style="color:var(--red)">19</div>
+        <div class="wk-stacks">
+          <div class="wk-seg" style="width:74%;background:#2D7DD2"></div>
+          <div class="wk-seg" style="width:21%;background:#E87B2E"></div>
+          <div class="wk-seg" style="width:5%;background:#7B5EA7"></div>
+        </div>
+        <div style="font-size:0.7rem;color:var(--muted);margin-top:6px;">OOC: 14 · PP: 4 · Rec: 1</div>
+      </div>
+    </div>
+
+    <div class="callout" style="--accent-color:#C0392B">
+      <div class="callout-title">📈 Rate Alert — 3.80% and Climbing</div>
+      <div class="callout-body">After hitting a 4-week low of <strong>2.96%</strong> on May 4, the VQ delay rate has risen to <strong>3.80%</strong> by May 18 — a 28% jump in two weeks. The 19-delay week of May 11 is the primary driver. Shared goal: return to below <strong>3.0%</strong> by end of May.</div>
+    </div>
+  </div><!-- end tab-trend -->
+
 </div>
+
+<!-- TAB SWITCHING -->
+<script>
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).style.display = 'block';
+    el.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
 
 <!-- FOOTER -->
 <div class="footer">
